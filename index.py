@@ -41,6 +41,12 @@ if args.cfg == "file":
 
 CORS(app)
 
+
+@app.route("/")
+def hello():
+    return "Hello User"
+
+"""
 util = Util()
 @app.before_request
 def database_object():
@@ -50,6 +56,7 @@ def database_object():
         g.contacts_book_db = contacts_book_db
     else:
         abort(500, custom='mongodb connection refused')
+"""
 
 api.init_app(app=app)
 api.add_namespace(contacts_namespace)
