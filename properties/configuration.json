@@ -1,0 +1,21 @@
+{
+	"LOCAL": {
+		"SSLFLAG" : false,
+		"SSLCERT" : "certs.pem",
+        "MONGO_URI": "mongodb://localhost:27017",
+        "MONGO_DATABASE": "contacts_book",
+		"SECRET_KEY": "themaninthemirroristherightpersontotalkto"
+	},
+	"DEV": {
+      "SSLFLAG": true,
+      "SSLCERT": "certs.pem"
+    },
+   "TEST" :{
+		"SSLFLAG" : true,
+		"SSLCERT" : "certs.pem"
+	},
+	"PROD" :{
+		"SSLFLAG" : true,
+		"SSLCERT" : "certs.pem"
+	}
+}

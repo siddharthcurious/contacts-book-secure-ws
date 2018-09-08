@@ -1,0 +1,18 @@
+# Pull base image.
+FROM ubuntu:16.04
+
+MAINTAINER W.Bona Fernando <fernando.bona@hp.com>
+MAINTAINER Agliardi, Douglas <douglas.agliardi@hp.com>
+
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
+RUN echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.2.list
+RUN apt-get update && apt-get install -y mongodb-org
+
+RUN mkdir -p /data/mu
+RUN mkdir -p /data/db
+
+RUN systemctl unmask mongodb
+
+EXPOSE 27017
+
+ENTRYPOINT ["/usr/bin/mongod"]
