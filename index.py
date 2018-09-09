@@ -7,6 +7,7 @@ from flask import Flask
 from flask_cors import CORS
 from app.api.restplus_api import api
 from flask_restplus import abort
+from common.crossdomain import crossdomain
 from app.api.resources.contacts_controller import ns as contacts_namespace
 from app.api.resources.users_controller import ns as users_namespace
 from app.api.resources.token_generator import ns as toke_namespace
@@ -46,6 +47,11 @@ if args.cfg == "file":
 @app.route("/")
 def hello():
     return "Hello User"
+
+@app.after_request
+@crossdomain(origin="*")
+def after(response):
+    return response
 
 """
 util = Util()
