@@ -94,7 +94,9 @@ data = [
 
 #### For testing end points Generate jwt token
 
-`http://localhost:5000/<username>/password` <---- A rbac user
+`http://localhost:5000/<username>/<password>` <---- A rbac user
+
+![alt text](https://github.com/sandhyalalkumar/contacts-book-secure-ws/blob/master/generate_token.png)
 
 
 
