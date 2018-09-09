@@ -1,5 +1,4 @@
-import json
-from bson import json_util
+from common.tojson import tojson
 from flask import current_app as app
 from flask import g
 from flask import request
@@ -8,13 +7,7 @@ from flask_restplus import reqparse
 from app.api.restplus_api import api
 from app.api.models.entity_models import person
 
-ns = api.namespace('persons',  description='Operations - Contacts')
-
-def tojson(object):
-    if object:
-        return json.loads(json_util.dumps(object))
-    else:
-        return None
+ns = api.namespace('persons',  description='Contacts book')
 
 @ns.route("/contact/create")
 @api.response(404, "Contact not found")

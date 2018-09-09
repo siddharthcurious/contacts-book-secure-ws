@@ -1,8 +1,6 @@
-# Pull base image.
-FROM ubuntu:16.04
+FROM python:2.7.15-slim-stretch
 
-MAINTAINER W.Bona Fernando <fernando.bona@hp.com>
-MAINTAINER Agliardi, Douglas <douglas.agliardi@hp.com>
+MAINTAINER Sandhyalal Kumar <sandhyalalkumar@gmail.com>
 
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
 RUN echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.2.list
@@ -13,6 +11,19 @@ RUN mkdir -p /data/db
 
 RUN systemctl unmask mongodb
 
+RUN apt-get update
+RUN apt-get install sshpass -y
+RUN apt-get install vim -y
+RUN pip install -r requirements.txt
+RUN echo "    StrictHostKeyChecking no" >> /etc/ssh/ssh_config
+
+
+ENV SERVICEHOST="0.0.0.0"
+ENV SERVICEPORT=5000
+ENV ENVIRONMENT="local"
+ENV CONFIGSOURCE="file"
+
+EXPOSE 5000
 EXPOSE 27017
 
-ENTRYPOINT ["/usr/bin/mongod"]
+ENTRYPOINT ["entry_script.sh"]

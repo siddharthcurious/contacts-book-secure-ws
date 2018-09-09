@@ -7,7 +7,7 @@ from flask_restplus import reqparse
 from app.api.restplus_api import api
 from app.api.models.entity_models import user
 
-ns = api.namespace('users',  description='Operations - users')
+ns = api.namespace('users',  description='User registration and login')
 
 @ns.route("/<string:username>")
 class PersonaTools(Resource):
