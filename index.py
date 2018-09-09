@@ -13,6 +13,7 @@ from app.api.resources.token_generator import ns as toke_namespace
 from app.api.resources.populate_data import ns as populate_data
 
 app = Flask(__name__)
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 configs = {
     "dev"  	: "app.config.DevConfig",
@@ -41,8 +42,6 @@ if args.cfg == "file":
         config_keys = config_env.keys()
         for key in config_keys:
             app.config[key] = config_env[key]
-
-cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 @app.route("/")
 def hello():
