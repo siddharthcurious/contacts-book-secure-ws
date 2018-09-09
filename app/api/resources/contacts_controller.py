@@ -6,7 +6,8 @@ from flask_restplus import Resource
 from flask_restplus import reqparse
 from app.api.restplus_api import api
 from app.api.models.entity_models import person
-from flask_restplus import cors
+from common.security.token_validator import auth_required
+from common.security.role_based_access import required_roles
 
 ns = api.namespace('persons',  description='Contacts book')
 
@@ -14,9 +15,11 @@ ns = api.namespace('persons',  description='Contacts book')
 @api.response(404, "Contact not found")
 class Person(Resource):
 
-    @cors.crossdomain(origin='*')
     @api.response(200, "Successfully created contact")
     @api.response(400, "Contact already exist")
+    @auth_required
+    @required_roles("ADMIN")
+    @api.doc(security="apikey")
     @api.expect(person)
     def post(self):
         """
@@ -33,7 +36,7 @@ class Person(Resource):
         cursor = coll.find({"emailid": request_obj["emailid"]})
 
         if cursor.count() >= 1:
-            return {"message":"user already exist"}, 400
+            return {"message":"contact already exist"}, 400
 
         try:
             coll.insert_one(request_obj)
@@ -47,9 +50,11 @@ class Person(Resource):
 @api.response(404, "Contact not found")
 class Person(Resource):
 
-    @cors.crossdomain(origin='*')
     @api.response(200, "Successfully updated contact")
     @api.response(500, "Contact could not updated")
+    @required_roles("ADMIN")
+    @auth_required
+    @api.doc(security="apikey")
     @api.expect(person)
     def put(self, emailid):
         """
@@ -78,9 +83,11 @@ class Person(Resource):
 
 @ns.route("/search/<string:emailid>")
 class Person(Resource):
-    @cors.crossdomain(origin='*')
     @api.response(200, "Contact found")
     @api.response(404, "Contact not found")
+    @required_roles("ADMIN", "USER")
+    @auth_required
+    @api.doc(security="apikey")
     def get(self, emailid):
         """
         Get contact by email id
@@ -93,9 +100,11 @@ class Person(Resource):
 
 @ns.route("/search/firstname/<string:firstname>")
 class Person(Resource):
-    @cors.crossdomain(origin='*')
     @api.response(200, "Contacts found")
     @api.response(404, "Contacts not found")
+    @required_roles("ADMIN", "USER")
+    @auth_required
+    @api.doc(security="apikey")
     def get(self, firstname):
         """
         Get contacts by firstname
@@ -108,9 +117,11 @@ class Person(Resource):
 
 @ns.route("/search/lastname/<string:lastname>")
 class Person(Resource):
-    @cors.crossdomain(origin='*')
     @api.response(200, "Contacts found")
     @api.response(404, "Contacts not found")
+    @required_roles("ADMIN", "USER")
+    @auth_required
+    @api.doc(security="apikey")
     def get(self, lastname):
         """
         Get contacts by lastname
@@ -123,9 +134,11 @@ class Person(Resource):
 
 @ns.route("/contacts")
 class Person(Resource):
-    @cors.crossdomain(origin='*')
     @api.response(200, "Contacts found")
     @api.response(404, "Contacts not found")
+    @required_roles("ADMIN", "USER")
+    @auth_required
+    @api.doc(security="apikey")
     def get(self):
         """
         Get all contacts
@@ -138,9 +151,11 @@ class Person(Resource):
 
 @ns.route("/<string:firstname>")
 class Person(Resource):
-    @cors.crossdomain(origin='*')
     @api.response(200, "Contacts found")
     @api.response(404, "Contacts not found")
+    @required_roles("ADMIN", "USER")
+    @auth_required
+    @api.doc(security="apikey")
     def get(self, firstname):
         """
         Search contacts by first name and default pagesize is 10
@@ -162,9 +177,11 @@ class Person(Resource):
 
 @ns.route("/search/<string:firstname>/<int:pagenum>/<int:pagesize>")
 class Person(Resource):
-    @cors.crossdomain(origin='*')
     @api.response(200, "Contacts found")
     @api.response(404, "Contacts not found")
+    @required_roles("ADMIN", "USER")
+    @auth_required
+    @api.doc(security="apikey")
     def get(self, firstname, pagenum, pagesize):
         """
         Search contacts by firstname and pagination

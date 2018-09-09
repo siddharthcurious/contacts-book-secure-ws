@@ -7,7 +7,6 @@ from flask import Flask
 from flask_cors import CORS
 from app.api.restplus_api import api
 from flask_restplus import abort
-from common.crossdomain import crossdomain
 from app.api.resources.contacts_controller import ns as contacts_namespace
 from app.api.resources.users_controller import ns as users_namespace
 from app.api.resources.token_generator import ns as toke_namespace
@@ -44,11 +43,13 @@ if args.cfg == "file":
         for key in config_keys:
             app.config[key] = config_env[key]
 
-"""
-@app.route("/")
-def hello():
-    return "Hello User"
-"""
+authorizations = {
+    'apikey': {
+        'type': 'apiKey',
+        'in': 'header',
+        'name': 'Authorization'
+    }
+}
 
 util = Util()
 @app.before_request
@@ -61,6 +62,7 @@ def database_object():
         abort(500, custom='mongodb connection refused')
 
 api.init_app(app=app)
+api.authorizations=authorizations
 api.add_namespace(contacts_namespace)
 api.add_namespace(users_namespace)
 api.add_namespace(toke_namespace)

@@ -6,28 +6,58 @@ from flask_restplus import Resource
 from flask_restplus import reqparse
 from app.api.restplus_api import api
 from app.api.models.entity_models import user
-from flask_restplus import cors
+from common.security.token_validator import auth_required
+from common.tojson import tojson
 
-ns = api.namespace('users',  description='User registration and login')
+ns = api.namespace('user',  description='User registration and login')
 
 @ns.route("/<string:username>")
-class PersonaTools(Resource):
+class UsersMangement(Resource):
 
     @api.response(404, "User not found")
     @api.response(200, "User found")
-    @cors.crossdomain(origin='*')
+    @auth_required
+    @api.doc(security="apikey")
     def get(self, username):
         """
-        Returns a persona details
+        Returns a user details
         """
-        return {"hey": "man"}, 200
+        coll = g.contacts_book_db.rbac_users
+        cursor = coll.find({"username": username})
 
-    @cors.crossdomain(origin='*')
-    @api.response(200, "User created successfully")
-    @api.response(500, "User registration failed")
+        if cursor.count() < 1:
+            return {"message": "user not registered {}".format(user)}, 400
+
+        return tojson(cursor[0])
+
+
+@api.response(500, "User registration failed")
+@ns.route("/register")
+class UsersMangement(Resource):
+    @api.response(200, "User registered successfully")
+    @api.response(400, "User already exist")
     @api.expect(user)
     def post(self):
         """
-        Creates an edge node on request
+        Register a user
         """
-        pass
+        parser = reqparse.RequestParser()
+        parser.add_argument("firstname", type=str, help='First Name', required=True)
+        parser.add_argument("lastname", type=str, help="Last Name", required=True)
+        parser.add_argument("username", type=str, help="Unique Username", required=True)
+        parser.add_argument("password", type=str, help="Password", required=True)
+        parser.add_argument("roles", type=str, help="Roles", action="append", required=True)
+        request_obj = parser.parse_args(strict=True)
+
+        coll = g.contacts_book_db.rbac_users
+        cursor = coll.find({"username": request_obj["username"]})
+
+        if cursor.count() >= 1:
+            return {"message": "user already exist: {}".format(request_obj["username"])}, 400
+
+        try:
+            coll.insert_one(request_obj)
+        except Exception as ex:
+            app.logger.debug(ex)
+            return 'could not save the request into mongodb', 500
+        return tojson(request_obj), 200

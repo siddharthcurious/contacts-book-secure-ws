@@ -12,5 +12,6 @@ user = api.model("User", {
     "firstname": fields.String,
     "lastname": fields.String,
     "username": fields.String,
-    "password": fields.String
+    "password": fields.String,
+    "roles": fields.List(fields.String)
 })
