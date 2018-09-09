@@ -14,7 +14,7 @@ from app.api.resources.token_generator import ns as toke_namespace
 from app.api.resources.populate_data import ns as populate_data
 
 app = Flask(__name__)
-CORS(app, resources={r"/swagger*": {"origins": "*"}})
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 configs = {
     "dev"  	: "app.config.DevConfig",
@@ -44,18 +44,12 @@ if args.cfg == "file":
         for key in config_keys:
             app.config[key] = config_env[key]
 
+"""
 @app.route("/")
 def hello():
     return "Hello User"
-
-"""
-@app.after_request
-@crossdomain(origin="*")
-def after(response):
-    return response
 """
 
-"""
 util = Util()
 @app.before_request
 def database_object():
@@ -65,7 +59,6 @@ def database_object():
         g.contacts_book_db = contacts_book_db
     else:
         abort(500, custom='mongodb connection refused')
-"""
 
 api.init_app(app=app)
 api.add_namespace(contacts_namespace)
