@@ -14,7 +14,7 @@ from app.api.resources.token_generator import ns as toke_namespace
 from app.api.resources.populate_data import ns as populate_data
 
 app = Flask(__name__)
-cors = CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app, resources={r"/swagger": {"origins": "*"}})
 
 configs = {
     "dev"  	: "app.config.DevConfig",
