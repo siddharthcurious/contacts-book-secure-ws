@@ -71,4 +71,4 @@ api.add_namespace(populate_data)
 if __name__ == "__main__":
 
     port = int(os.environ.get('PORT', args.port))
-    app.run(debug=True, host=args.host, port=port)
+    app.run(debug=True, host=args.host, port=port, threaded=True)

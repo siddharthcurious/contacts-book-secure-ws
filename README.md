@@ -103,7 +103,9 @@ Copy the generated token and pass it to API key with double quote
 
 `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhbSIsInBhc3N3b3JkIjoicmFtIiwiZXhwIjoxNTM2NTc3NDc1fQ.Y5ePPr6mv_NVYt62CDABqA03RxNwpU-v3kJcJV9QwV8`
 
+![alt text](https://github.com/sandhyalalkumar/contacts-book-secure-ws/blob/master/authorize_apis.png)
 
+![alt text](https://github.com/sandhyalalkumar/contacts-book-secure-ws/blob/master/authorized.png)
 
 
 
