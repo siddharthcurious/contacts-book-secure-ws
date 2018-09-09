@@ -2,8 +2,8 @@
 	"LOCAL": {
 		"SSLFLAG" : false,
 		"SSLCERT" : "certs.pem",
-        "MONGO_URI": "mongodb://sand:sand@mongoprovider.com:27409/contact-book",
-        "MONGO_DATABASE": "contact-book",
+        "MONGO_URI": "mongodb://localhost:27017",
+        "MONGO_DATABASE": "contacts_book",
 		"SECRET_KEY": "themaninthemirroristherightpersontotalkto"
 	},
 	"DEV": {

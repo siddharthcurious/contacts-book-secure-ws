@@ -1,3 +1,4 @@
+import os
 from flask import g
 import argparse
 import json
@@ -8,6 +9,8 @@ from app.api.restplus_api import api
 from flask_restplus import abort
 from app.api.resources.contacts_controller import ns as contacts_namespace
 from app.api.resources.users_controller import ns as users_namespace
+from app.api.resources.token_generator import ns as toke_namespace
+from app.api.resources.populate_data import ns as populate_data
 
 app = Flask(__name__)
 
@@ -41,7 +44,6 @@ if args.cfg == "file":
 
 CORS(app)
 
-
 @app.route("/")
 def hello():
     return "Hello User"
@@ -61,7 +63,10 @@ def database_object():
 api.init_app(app=app)
 api.add_namespace(contacts_namespace)
 api.add_namespace(users_namespace)
+api.add_namespace(toke_namespace)
+api.add_namespace(populate_data)
 
 if __name__ == "__main__":
 
-    app.run(debug=True, host=args.host, port=args.port)
+    port = int(os.environ.get('PORT', port=args.port))
+    app.run(debug=True, host=args.host, port=port)
