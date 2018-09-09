@@ -42,7 +42,7 @@ if args.cfg == "file":
         for key in config_keys:
             app.config[key] = config_env[key]
 
-CORS(app)
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 @app.route("/")
 def hello():
