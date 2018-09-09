@@ -27,4 +27,4 @@ class PopulateData(Resource):
         except Exception as ex:
             app.logger.debug(ex)
             return 'could not save the request into mongodb', 500
-        return tojson(data), 200
+        return str(data), 200

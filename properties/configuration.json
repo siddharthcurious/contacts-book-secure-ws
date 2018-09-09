@@ -2,7 +2,7 @@
 	"LOCAL": {
 		"SSLFLAG" : false,
 		"SSLCERT" : "certs.pem",
-        "MONGO_URI": "mongodb://localhost:27017",
+        "MONGO_URI": "mongodb://localhost:27017/contacts_book",
         "MONGO_DATABASE": "contacts_book",
 		"SECRET_KEY": "themaninthemirroristherightpersontotalkto"
 	},
