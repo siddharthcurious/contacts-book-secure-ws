@@ -95,8 +95,18 @@ data = [
 #### For testing end points Generate jwt token
 
 `http://localhost:5000/<username>/<password>` <---- A rbac user
+`http://localhost:5000/ram/ram` is ADMIN
 
 ![alt text](https://github.com/sandhyalalkumar/contacts-book-secure-ws/blob/master/generate_token.png)
+
+Copy the generated token and pass it to API key with double quote
+
+`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhbSIsInBhc3N3b3JkIjoicmFtIiwiZXhwIjoxNTM2NTc3NDc1fQ.Y5ePPr6mv_NVYt62CDABqA03RxNwpU-v3kJcJV9QwV8`
+
+
+
+
+
 
 
 
