@@ -6,6 +6,7 @@ from flask_restplus import Resource
 from flask_restplus import reqparse
 from app.api.restplus_api import api
 from app.api.models.entity_models import person
+from flask_restplus import cors
 
 ns = api.namespace('persons',  description='Contacts book')
 
@@ -13,6 +14,7 @@ ns = api.namespace('persons',  description='Contacts book')
 @api.response(404, "Contact not found")
 class Person(Resource):
 
+    @cors.crossdomain(origin='*')
     @api.response(200, "Successfully created contact")
     @api.response(400, "Contact already exist")
     @api.expect(person)
@@ -40,10 +42,12 @@ class Person(Resource):
             return 'could not save the request into mongodb', 500
         return tojson(request_obj), 200
 
+
 @ns.route("/contact/<string:emailid>")
 @api.response(404, "Contact not found")
 class Person(Resource):
 
+    @cors.crossdomain(origin='*')
     @api.response(200, "Successfully updated contact")
     @api.response(500, "Contact could not updated")
     @api.expect(person)
@@ -74,6 +78,7 @@ class Person(Resource):
 
 @ns.route("/search/<string:emailid>")
 class Person(Resource):
+    @cors.crossdomain(origin='*')
     @api.response(200, "Contact found")
     @api.response(404, "Contact not found")
     def get(self, emailid):
@@ -88,6 +93,7 @@ class Person(Resource):
 
 @ns.route("/search/firstname/<string:firstname>")
 class Person(Resource):
+    @cors.crossdomain(origin='*')
     @api.response(200, "Contacts found")
     @api.response(404, "Contacts not found")
     def get(self, firstname):
@@ -102,6 +108,7 @@ class Person(Resource):
 
 @ns.route("/search/lastname/<string:lastname>")
 class Person(Resource):
+    @cors.crossdomain(origin='*')
     @api.response(200, "Contacts found")
     @api.response(404, "Contacts not found")
     def get(self, lastname):
@@ -116,6 +123,7 @@ class Person(Resource):
 
 @ns.route("/contacts")
 class Person(Resource):
+    @cors.crossdomain(origin='*')
     @api.response(200, "Contacts found")
     @api.response(404, "Contacts not found")
     def get(self):
@@ -130,6 +138,7 @@ class Person(Resource):
 
 @ns.route("/<string:firstname>")
 class Person(Resource):
+    @cors.crossdomain(origin='*')
     @api.response(200, "Contacts found")
     @api.response(404, "Contacts not found")
     def get(self, firstname):
@@ -153,6 +162,7 @@ class Person(Resource):
 
 @ns.route("/search/<string:firstname>/<int:pagenum>/<int:pagesize>")
 class Person(Resource):
+    @cors.crossdomain(origin='*')
     @api.response(200, "Contacts found")
     @api.response(404, "Contacts not found")
     def get(self, firstname, pagenum, pagesize):

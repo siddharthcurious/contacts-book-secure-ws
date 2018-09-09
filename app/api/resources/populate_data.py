@@ -3,12 +3,15 @@ from flask import current_app as app
 from app.api.restplus_api import api
 from flask import g
 from common.tojson import tojson
+from flask_restplus import cors
 
 ns = api.namespace('populate',  description='For testing purpose, populate data to mongodb')
 
 @api.response(500, "Could not populate data")
 @ns.route("/data")
 class PopulateData(Resource):
+
+    @cors.crossdomain(origin='*')
     def get(self):
 
         data = [

@@ -14,7 +14,7 @@ from app.api.resources.token_generator import ns as toke_namespace
 from app.api.resources.populate_data import ns as populate_data
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 configs = {
     "dev"  	: "app.config.DevConfig",
@@ -48,10 +48,12 @@ if args.cfg == "file":
 def hello():
     return "Hello User"
 
+"""
 @app.after_request
 @crossdomain(origin="*")
 def after(response):
     return response
+"""
 
 """
 util = Util()
