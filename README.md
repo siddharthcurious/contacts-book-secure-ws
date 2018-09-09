@@ -107,6 +107,12 @@ Copy the generated token and pass it to API key with double quote
 
 ![alt text](https://github.com/sandhyalalkumar/contacts-book-secure-ws/blob/master/authorized.png)
 
+#### For Testing
+
+For API testing, I havee added few test cases
+
+`test/tests.py`
+
 
 
 
