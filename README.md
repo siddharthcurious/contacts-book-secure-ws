@@ -99,7 +99,7 @@ data = [
 
 ![alt text](https://github.com/sandhyalalkumar/contacts-book-secure-ws/blob/master/generate_token.png)
 
-Copy the generated token and pass it to API key with double quote
+Copy the generated token and pass it to API key "without" double quote
 
 `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhbSIsInBhc3N3b3JkIjoicmFtIiwiZXhwIjoxNTM2NTc3NDc1fQ.Y5ePPr6mv_NVYt62CDABqA03RxNwpU-v3kJcJV9QwV8`
 
