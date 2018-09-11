@@ -107,6 +107,8 @@ Copy the generated token and pass it to API key with double quote
 
 ![alt text](https://github.com/sandhyalalkumar/contacts-book-secure-ws/blob/master/authorized.png)
 
+![alt text](https://github.com/sandhyalalkumar/contacts-book-secure-ws/blob/master/search_paging.png)
+
 #### For Testing
 
 For API testing, I havee added few test cases
