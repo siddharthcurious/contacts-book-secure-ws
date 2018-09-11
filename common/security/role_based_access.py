@@ -37,7 +37,7 @@ def is_roles_defined(roles_api):
     app.logger.debug(roles_from_api)
     roles_from_db = set(roles_db)
     app.logger.debug(roles_from_db)
-    if roles_from_api.issubset(roles_from_db):
+    if roles_from_db.issubset(roles_from_api):
         return True
     return False
 
